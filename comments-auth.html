@@ -1,11 +1,10 @@
 <html>
-<script src='http://zor.livefyre.com/wjs/v3.0/javascripts/livefyre.js'></script>
+<script src='//cdn.livefyre.com/Livefyre.js'></script>
 <body>
 <div id="livefyre"></div>
 <script>
 var networkConfig = {
-  network: "client-solutions.fyre.co",
-  authDelegate: new fyre.conv.RemoteAuthDelegate()
+  network: "client-solutions.fyre.co"
 };
 var convConfig = {
   siteId: '347674',
@@ -14,20 +13,29 @@ var convConfig = {
   collectionMeta: 'eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJ0aXRsZSI6IlRpdGxlIDEiLCJ1cmwiOiJodHRwOlwvXC9kZXYubGl2ZWZ5cmUuY29tIiwidGFncyI6InRhZzEsdGFnMiIsImNoZWNrc3VtIjoiY2Q0YTJjYWJkMTIxOTkyM2FjZGJhMjExOWY2NmYwNTUiLCJhcnRpY2xlSWQiOiIxIn0.Dq-ghi9KYmEPmagvCS1NPyYDRMGBujm735QaTRb7E7k',
   checksum: '6e2e4faf7b95f896260fe695eafb34ba'
 };
-networkConfig.authDelegate.login = function (handlers) {
-  fyre.conv.login("eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJ1c2VyX2lkIjogIjEyMyIsICJkb21haW4iOiAiY2xpZW50LXNvbHV0aW9ucy5meXJlLmNvIiwgImV4cGlyZXMiOiAyMzkwNDE3MTEzLjY0NzQ1LCAiZGlzcGxheV9uYW1lIjogIk1yVGVzdGVyVGVzdCJ9.GwGSO0i2QV8Jyit3pJepT-BtPfWtI5y9F4yp0oFKR2w");
-  handlers.success();
-};
-networkConfig.authDelegate.logout = function (handlers) {
-  handlers.success();
-};
-networkConfig.authDelegate.viewProfile = function (author) {
-  console.log(author);
-};
-networkConfig.authDelegate.editProfile = function (author) {
-  console.log(author);
-};
-fyre.conv.load(networkConfig, [convConfig], function(commentsWidget) {}())
+Livefyre.require(['fyre.conv#3', 'auth'], function (Conv, auth) {
+  new Conv(networkConfig, [convConfig], function (commentsWidget) {}());
+  auth.delegate({
+    login: function (cb) {
+      cb(null,{livefyre:'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNDU2IiwiZGlzcGxheV9uYW1lIjoiQW5zd2VycyBBY2NvdW50IiwiZXhwaXJlcyI6MTQxNjkzMTA3OCwiZG9tYWluIjoiY2xpZW50LXNvbHV0aW9ucy5meXJlLmNvIn0.xtfL5X3L5X-JyPdG6RzpusyqcSlJjuk3kQMS7ADP4qU'});
+    },
+    logout: function (cb) {
+      cb(null);
+    },
+    viewProfile: function (author) {
+      console.log(author);
+    },
+    editProfile: function (author) {
+      console.log(author);
+    }
+  });
+  var isUserLoggedIn = function() {
+    return false;
+  };
+  if (isUserLoggedIn()) {
+    auth.authenticate({livefyre:'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNDU2IiwiZGlzcGxheV9uYW1lIjoiQW5zd2VycyBBY2NvdW50IiwiZXhwaXJlcyI6MTQxNjkzMTA3OCwiZG9tYWluIjoiY2xpZW50LXNvbHV0aW9ucy5meXJlLmNvIn0.xtfL5X3L5X-JyPdG6RzpusyqcSlJjuk3kQMS7ADP4qU'});
+  }
+});
 </script>
 </body>
 </html>

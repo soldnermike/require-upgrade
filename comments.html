@@ -1,5 +1,5 @@
 <html>
-<script src='http://zor.livefyre.com/wjs/v3.0/javascripts/livefyre.js'></script>
+<script src='//cdn.livefyre.com/Livefyre.js'></script>
 <body>
 <div id="livefyre"></div>
 <script>
@@ -13,7 +13,9 @@ var convConfig = {
   collectionMeta: 'eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJ0aXRsZSI6IlRpdGxlIDEiLCJ1cmwiOiJodHRwOlwvXC9kZXYubGl2ZWZ5cmUuY29tIiwidGFncyI6InRhZzEsdGFnMiIsImNoZWNrc3VtIjoiY2Q0YTJjYWJkMTIxOTkyM2FjZGJhMjExOWY2NmYwNTUiLCJhcnRpY2xlSWQiOiIxIn0.Dq-ghi9KYmEPmagvCS1NPyYDRMGBujm735QaTRb7E7k',
   checksum: '6e2e4faf7b95f896260fe695eafb34ba'
 };
-fyre.conv.load(networkConfig, [convConfig], function(commentsWidget) {}())
+Livefyre.require(['fyre.conv#3'], function (Conv) {
+  new Conv(networkConfig, [convConfig], function (commentsWidget) {}());
+});
 </script>
 </body>
 </html>
