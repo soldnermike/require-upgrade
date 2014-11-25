@@ -1,0 +1,33 @@
+<html>
+<script src='http://zor.livefyre.com/wjs/v3.0/javascripts/livefyre.js'></script>
+<body>
+<div id="livefyre"></div>
+<script>
+var networkConfig = {
+  network: "client-solutions.fyre.co",
+  authDelegate: new fyre.conv.RemoteAuthDelegate()
+};
+var convConfig = {
+  siteId: '347674',
+  articleId: '1',
+  el: 'livefyre',
+  collectionMeta: 'eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJ0aXRsZSI6IlRpdGxlIDEiLCJ1cmwiOiJodHRwOlwvXC9kZXYubGl2ZWZ5cmUuY29tIiwidGFncyI6InRhZzEsdGFnMiIsImNoZWNrc3VtIjoiY2Q0YTJjYWJkMTIxOTkyM2FjZGJhMjExOWY2NmYwNTUiLCJhcnRpY2xlSWQiOiIxIn0.Dq-ghi9KYmEPmagvCS1NPyYDRMGBujm735QaTRb7E7k',
+  checksum: '6e2e4faf7b95f896260fe695eafb34ba'
+};
+networkConfig.authDelegate.login = function (handlers) {
+  fyre.conv.login("eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJ1c2VyX2lkIjogIjEyMyIsICJkb21haW4iOiAiY2xpZW50LXNvbHV0aW9ucy5meXJlLmNvIiwgImV4cGlyZXMiOiAyMzkwNDE3MTEzLjY0NzQ1LCAiZGlzcGxheV9uYW1lIjogIk1yVGVzdGVyVGVzdCJ9.GwGSO0i2QV8Jyit3pJepT-BtPfWtI5y9F4yp0oFKR2w");
+  handlers.success();
+};
+networkConfig.authDelegate.logout = function (handlers) {
+  handlers.success();
+};
+networkConfig.authDelegate.viewProfile = function (author) {
+  console.log(author);
+};
+networkConfig.authDelegate.editProfile = function (author) {
+  console.log(author);
+};
+fyre.conv.load(networkConfig, [convConfig], function(commentsWidget) {}())
+</script>
+</body>
+</html>
